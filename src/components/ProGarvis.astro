@@ -1,0 +1,41 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import portrait from "../assets/img/founder-portrait.jpg";
+import { chronicle, facts, notes } from "../data/garvis";
+---
+<Section id="pro-garvis" class="about" rec="R-105,R-202">
+  <div class="container about__in">
+    <figure class="about__photo">
+      <Picture
+        src={portrait}
+        formats={["avif", "webp"]}
+        widths={[360, 560, 800]}
+        sizes="(min-width: 1024px) 470px, (min-width: 640px) 60vw, 100vw"
+        alt="Професор Яків Соломонович Березницький за робочим столом, у білому халаті з логотипом Garvis"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Професор Березницький Яків Соломонович, засновник мережі</figcaption>
+    </figure>
+
+    <div class="about__text">
+      <p class="about__year" aria-hidden="true">1997</p>
+      <h2 class="h2">Garvis з 1997 року</h2>
+      <ol class="chron">
+        {chronicle.map((c) => (
+          <li><span class="chron__y">{c.year}</span><span class="chron__t">{c.text}</span></li>
+        ))}
+      </ol>
+      <ul class="facts" aria-label="Garvis у цифрах">
+        {facts.map((f) => <li><strong>{f.n}</strong> {f.t}</li>)}
+      </ul>
+      <ul class="about__links">
+        <li><FutureLink note={notes.page} class="future-text">Лікарі</FutureLink></li>
+        <li><FutureLink note={notes.page} class="future-text">Відгуки пацієнтів</FutureLink></li>
+        <li><FutureLink note={notes.page} class="btn btn--future">Детальніше про Garvis</FutureLink></li>
+      </ul>
+    </div>
+  </div>
+</Section>

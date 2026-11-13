@@ -1,0 +1,51 @@
+---
+import Section from "./Section.astro";
+import Pointer from "./Pointer.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { centres, typeLabel, countOf, mapsHref, mainPhone, notes, type CentreType } from "../data/garvis";
+
+const filters: { key: "all" | CentreType; label: string; n?: number }[] = [
+  { key: "all", label: "Усі" },
+  { key: "family", label: typeLabel.family, n: countOf("family") },
+  { key: "diag", label: typeLabel.diag, n: countOf("diag") },
+  { key: "surgery", label: typeLabel.surgery, n: countOf("surgery") },
+  { key: "rehab", label: typeLabel.rehab, n: countOf("rehab") },
+];
+---
+<Section id="tsentry" class="tsentry" rec="R-104">
+  <div class="container">
+    <div class="tsentry__head">
+      <h2 class="h2">11 закладів у Дніпрі — оберіть найближчий</h2>
+      <p class="tsentry__lead">Запис до будь-якого закладу — через єдиний контакт-центр.</p>
+    </div>
+
+    <div class="filter" role="group" aria-label="Тип закладу" data-filter>
+      {filters.map((f, i) => (
+        <button type="button" class="filter__btn" data-type={f.key} aria-pressed={i === 0 ? "true" : "false"} aria-controls="centres-list">
+          {f.label}{f.n && <span class="filter__n">{f.n}</span>}
+        </button>
+      ))}
+    </div>
+    <p class="visually-hidden" aria-live="polite" data-filter-status></p>
+
+    <ul class="centres" id="centres-list">
+      {centres.map((c) => (
+        <li class="centre" data-types={c.types.join(" ")}>
+          <Pointer class="centre__ptr" />
+          <div class="centre__body">
+            <address class="centre__street">{c.street}{c.note && <span class="centre__alt"> ({c.note})</span>}</address>
+            <p class="centre__name">{c.names.join(" і ")}</p>
+            <p class="centre__types">{c.types.map((t) => typeLabel[t]).join(", ")}</p>
+          </div>
+          <div class="centre__act">
+            <a class="btn btn--line btn--sm" href={mapsHref(c.query)} target="_blank" rel="noopener noreferrer" aria-label={`Маршрут: ${c.street} (Google Карти, нова вкладка)`}><Icon name="route" />Маршрут</a>
+            <a class="btn btn--primary btn--sm" href={mainPhone.href} aria-label={`Подзвонити в контакт-центр: ${mainPhone.label}`}><Icon name="phone" />Подзвонити</a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <p class="tsentry__more"><FutureLink note={notes.page} class="btn btn--future">Сторінки центрів</FutureLink></p>
+  </div>
+</Section>

@@ -1,0 +1,74 @@
+---
+import { getImage } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logoFull from "../assets/img/garvis-logo.png";
+import logoMark from "../assets/img/garvis-mark.png";
+import { mainPhone, phones, hours, notes } from "../data/garvis";
+
+// Client logo (file from the client's site, copied locally). Art direction: full sign with the descriptor
+// where there is room, the GARVIS ▶ mark on narrow screens and in the crowded 1024–1399 header.
+const H = 30;
+const fullW = Math.round((logoFull.width / logoFull.height) * H);
+const markW = Math.round((logoMark.width / logoMark.height) * H);
+const full1 = await getImage({ src: logoFull, width: fullW, format: "webp" });
+const full2 = await getImage({ src: logoFull, width: fullW * 2, format: "webp" });
+const mark1 = await getImage({ src: logoMark, width: markW, format: "webp" });
+const mark2 = await getImage({ src: logoMark, width: markW * 2, format: "webp" });
+const markPng = await getImage({ src: logoMark, width: markW * 2, format: "png" });
+
+const anchors = [
+  { href: "#napriamy", label: "Напрями" },
+  { href: "#deklaratsiia", label: "Декларація" },
+  { href: "#tsentry", label: "Центри" },
+  { href: "#pro-garvis", label: "Про Garvis" },
+  { href: "#zapys", label: "Контакти" },
+];
+const future = ["Лікарі", "Ціни"];
+---
+<header class="hdr" data-rec="R-106,R-208">
+  <div class="container hdr__in">
+    <a class="hdr__logo" href="#top" aria-label="Garvis — Твоя територія здоров'я, на початок сторінки">
+      <picture>
+        <source media="(min-width: 1400px), (min-width: 420px) and (max-width: 1023.98px)" srcset={`${full1.src} 1x, ${full2.src} 2x`} width={fullW} height={H} type="image/webp" />
+        <source srcset={`${mark1.src} 1x, ${mark2.src} 2x`} width={markW} height={H} type="image/webp" />
+        <img src={markPng.src} width={markW} height={H} alt="Garvis" decoding="async" />
+      </picture>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Головне меню">
+      <ul>
+        {anchors.map((a) => <li><a href={a.href}>{a.label}</a></li>)}
+        {future.map((f) => <li><FutureLink note={notes.page} class="nav-future">{f}</FutureLink></li>)}
+      </ul>
+    </nav>
+
+    <div class="hdr__end">
+      <FutureLink note={notes.page} class="hdr__lang nav-future"><span lang="ru">Рус</span></FutureLink>
+      <a class="hdr__phone" href={mainPhone.href}>{mainPhone.label}</a>
+      <a class="btn btn--primary hdr__call" href={mainPhone.href}>Подзвонити</a>
+      <a class="hdr__icon hdr__tel" href={mainPhone.href} aria-label={`Подзвонити: ${mainPhone.label}`}><Icon name="phone" /></a>
+      <button class="hdr__icon hdr__burger" type="button" aria-expanded="false" aria-controls="mmenu" aria-label="Відкрити меню"><Icon name="menu" /></button>
+    </div>
+  </div>
+</header>
+
+<div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="mmenu__top container">
+    <span class="mmenu__title">Меню</span>
+    <button class="hdr__icon mmenu__close" type="button" aria-label="Закрити меню"><Icon name="close" /></button>
+  </div>
+  <nav class="container mmenu__nav" aria-label="Меню на телефоні">
+    <ul class="mmenu__anchors">
+      {anchors.map((a) => <li><a href={a.href}>{a.label}</a></li>)}
+    </ul>
+    <ul class="mmenu__future">
+      {future.map((f) => <li><FutureLink note={notes.page} class="nav-future">{f}</FutureLink></li>)}
+      <li><FutureLink note={notes.page} class="nav-future"><span lang="ru">Рус</span></FutureLink></li>
+    </ul>
+  </nav>
+  <div class="container mmenu__contact">
+    {phones.map((p) => <a class="mmenu__phone" href={p.href}>{p.label}</a>)}
+    <p>Контакт-центр {hours}</p>
+  </div>
+</div>

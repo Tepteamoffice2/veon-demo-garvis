@@ -1,0 +1,51 @@
+---
+import { getImage } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import logoFull from "../assets/img/garvis-logo.png";
+import { phones, email, hours, socials, typeLabel, countOf, notes } from "../data/garvis";
+
+const H = 36;
+const W = Math.round((logoFull.width / logoFull.height) * H);
+const l1 = await getImage({ src: logoFull, width: W, format: "webp" });
+const l2 = await getImage({ src: logoFull, width: W * 2, format: "webp" });
+const year = new Date().getFullYear();
+const types = (["family", "diag", "surgery", "rehab"] as const).map((t) => ({ label: typeLabel[t], n: countOf(t) }));
+---
+<footer class="ftr" id="kontakty" data-rec="R-106,R-107,S-R016,M-R004">
+  <div class="container ftr__in">
+    <div class="ftr__brand">
+      <a href="#top" class="ftr__logo" aria-label="Garvis — Твоя територія здоров'я, на початок сторінки">
+        <img src={l1.src} srcset={`${l1.src} 1x, ${l2.src} 2x`} width={W} height={H} alt="Garvis" loading="lazy" decoding="async" />
+      </a>
+      <ul class="ftr__social" aria-label="Garvis у соцмережах">
+        {socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}<span class="visually-hidden"> (нова вкладка)</span></a></li>)}
+      </ul>
+    </div>
+
+    <div class="ftr__col ftr__contact">
+      <h2 class="ftr__h">Контакт-центр</h2>
+      {phones.map((p) => <a class="ftr__phone" href={p.href}>{p.label}</a>)}
+      <p>{hours[0].toUpperCase() + hours.slice(1)}</p>
+      <p><a href={`mailto:${email}`}>{email}</a></p>
+    </div>
+
+    <div class="ftr__col">
+      <h2 class="ftr__h">Заклади</h2>
+      <ul class="ftr__list">
+        {types.map((t) => <li>{t.label}: {t.n}</li>)}
+      </ul>
+      <a class="textlink" href="#tsentry">Усі 11 закладів</a>
+    </div>
+
+    <div class="ftr__col">
+      <h2 class="ftr__h">Розділи</h2>
+      <ul class="ftr__list">
+        {["Лікарі", "Ціни", "Відгуки пацієнтів", "Блог", "Політика конфіденційності"].map((s) => <li><FutureLink note={notes.page} class="nav-future">{s}</FutureLink></li>)}
+        <li><FutureLink note={notes.page} class="nav-future">{"Версія "}<span lang="ru">Рус</span></FutureLink></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container ftr__base">
+    <p>© 1997–{year} Garvis. Мережа медичних центрів у Дніпрі.</p>
+  </div>
+</footer>

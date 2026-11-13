@@ -1,0 +1,9 @@
+/* Self-hosted fonts (@fontsource, SIL OFL 1.1): only the weights the page uses; each subset has a unicode-range, so the browser downloads only cyrillic + latin files. font-display: swap is set by the packages. */
+@import "@fontsource/commissioner/800.css";
+@import "@fontsource/commissioner/700.css";
+@import "@fontsource/wix-madefor-text/400.css";
+@import "@fontsource/wix-madefor-text/600.css";
+
+/* Metric fallbacks: keep line boxes close while the woff2 loads (CLS). */
+@font-face { font-family: "Commissioner Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 101%; ascent-override: 98%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: "Wix Madefor Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 103%; ascent-override: 96%; descent-override: 25%; line-gap-override: 0%; }

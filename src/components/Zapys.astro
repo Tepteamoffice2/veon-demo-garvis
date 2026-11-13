@@ -1,0 +1,36 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { phones, mainPhone, email, hours, notes } from "../data/garvis";
+---
+<Section id="zapys" class="zapys" rec="R-106">
+  <div class="container zapys__in">
+    <div class="zapys__main">
+      <h2 class="h2">Як записатися</h2>
+      <p class="zapys__lead">Один контакт-центр для всіх 11 закладів: запис до лікаря, на діагностику, декларація і питання.</p>
+      <ul class="zapys__phones">
+        {phones.map((p) => <li><a class="bigphone" href={p.href}><Icon name="phone" /><span>{p.label}</span></a></li>)}
+      </ul>
+      <p class="zapys__hours">Контакт-центр {hours}</p>
+      <p class="zapys__mail"><Icon name="mail" /><a href={`mailto:${email}`}>{email}</a></p>
+      <p><FutureLink note={notes.booking} class="btn btn--future">Онлайн-запис до лікаря</FutureLink></p>
+    </div>
+
+    <form class="callback" aria-labelledby="callback-h" novalidate>
+      <h3 class="callback__title" id="callback-h">Передзвоніть мені</h3>
+      <div class="field">
+        <label for="cb-name">Ім'я</label>
+        <input id="cb-name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="cb-phone">Телефон</label>
+        <input id="cb-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+38 0XX XXX XX XX" required aria-describedby="cb-phone-hint" />
+        <p class="field__hint" id="cb-phone-hint">Номер у форматі +38 0XX XXX XX XX</p>
+      </div>
+      <FutureLink note={notes.form} class="btn btn--future btn--block">Замовити дзвінок</FutureLink>
+      <p class="callback__now">А поки — зателефонуйте: <a href={mainPhone.href} class="nowrap">{mainPhone.label}</a></p>
+      <p class="callback__consent">Надсилаючи заявку, ви погоджуєтесь з умовами <FutureLink note={notes.page} class="inline-future">Політики конфіденційності</FutureLink>.</p>
+    </form>
+  </div>
+</Section>

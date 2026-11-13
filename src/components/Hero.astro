@@ -1,0 +1,44 @@
+---
+import Section from "./Section.astro";
+import Pointer from "./Pointer.astro";
+import { phones, mainPhone } from "../data/garvis";
+
+// The «вказівник»: four direction signs, each one with the fact «де» (C-008, addresses, products_services).
+const signs = [
+  { href: "#n-family", name: "Сімейний лікар і педіатр", fact: "7 центрів по місту" },
+  { href: "#n-diag", name: "Діагностика", fact: "Набережна Перемоги та Слобожанський" },
+  { href: "#n-surgery", name: "Хірургія", fact: "16 напрямів, власний стаціонар" },
+  { href: "#n-rehab", name: "Реабілітація", fact: "Слобожанський, 109а, з НСЗУ" },
+];
+---
+<Section id="hero" class="hero" rec="R-101,R-108,R-211,R-201,M-R004">
+  <div class="container hero__in">
+    <h1 class="hero__title">Медичні центри Garvis у <span class="nowrap">Дніпрі —</span> від сімейного лікаря до хірургії та реабілітації</h1>
+    <p class="hero__lead">11 закладів за 10 адресами міста і один контакт-центр для запису.</p>
+    <div class="hero__actions">
+      <a class="btn btn--lime btn--xl nowrap" href={mainPhone.href} data-rec="R-101,R-106,G-R003">
+        <span>Подзвонити: {mainPhone.short}</span><Pointer />
+      </a>
+      <a class="hero__choose" href="#napriamy">Обрати напрям</a>
+    </div>
+    <p class="hero__hours">Контакт-центр щодня 08:00–20:00, також <a href={phones[1].href} class="nowrap">{phones[1].short}</a></p>
+  </div>
+  <nav class="container signs" aria-label="Напрями мережі">
+    <ul>
+      {signs.map((s, i) => (
+        <li style={`--i:${i}`}>
+          <a class="sign" href={s.href}>
+            <Pointer class="sign__ptr" />
+            <span class="sign__name">{s.name}</span>
+            <span class="sign__fact">{s.fact}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</Section>
+
+<style>
+  /* the call label and phone number stay on one line (Hallmark 49); 320 px fit is set in site.css */
+  .btn.nowrap { white-space: nowrap; }
+</style>

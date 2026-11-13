@@ -1,0 +1,52 @@
+/* Hallmark · theme: custom · idea: "Вказівник території здоров'я — таблички напрямів і адреси мережі Garvis" · vibe: "вказівник, зелене поле, міський, ясний, спокійний" · job: book+visit · paper: #FFFFFF · accent: #126039 (поле), pointer #C9070A · display: Commissioner · body: Wix Madefor Text · hero: зелене поле, H1 і дзвінок, під ними 4 таблички напрямів на всю ширину · nav: одна строка, якорі + номер + кнопка · footer: світлий #EEF3EC, контакт-центр, заклади, розділи · imagery: client photos (портрет засновника, будівля — якщо підтверджено) · signature: покажчик ▶ із логотипа веде від табличок до стендів і 10 адрес · axes: light/grotesk-heavy/chromatic-green · posture: committed */
+/* Hallmark · shape: index-first (мережа адрес) · genre: editorial · surface: absolute (#FFFFFF у затвердженій палітрі концепції) · contrast: pass · fold: pass · v2.0.0 · imagery note: фото будівлі не підтверджено (кандидати 2026/01/276-2, 277-1 — рекламна пара), блок «Про Garvis» лише з портретом засновника */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E (expression), the pointer ▶ from the logo is made the one working sign on bands, stands and addresses instead of decoration */
+/* Hallmark · waive 7b · paper #FFFFFF is fixed in the approved concept palette (veon-concept colors) · the client's own white sits between full #126039 fields and #EEF3EC/#DEFECB surfaces, so the page is never one flat white */
+/* Hallmark · waive 39b · a.btn and form inputs measure 56 px at 1440 · concept.md §8 «Кнопки: висота 56/48» and «Форми: поле 56 px» fix this height in the approved design system (decisions.md, 2026-11-13 Hallmark waivers) */
+/* Hallmark · waive 44c · hero runs to about 965 px at 1440x900, the fourth sign sits below the fold · concept.md §5.5 asks only that the top of the first sign show at 1440x900; the H1 text is fixed by veon-concept and is not cut (decisions.md, 2026-11-13 Hallmark waivers) */
+/* Hallmark · answered F19 · concept §5.4 fixes the pair as Commissioner 700/800 + Wix Madefor Text 400/600; 800 only for H1, «Безоплатно», streets and big numbers */
+/* Hallmark · dismissed 28a · LCP is the H1 text on the green field (R-108); the lazy footer logo is far below the fold, the header logo is eager */
+/* Client design tokens: from design/concept.md (veon-concept: colors, fonts). One token system for the whole site. */
+:root {
+  /* palette — concept §5.3 */
+  --c-primary: #126039;      /* поле таблички, кнопки, посилання */
+  --c-primary-deep: #0B3D24; /* hover, текст на lime, фокус на світлому */
+  --c-leaf: #9BD291;         /* покажчик на зеленому, стенд «Реабілітація» */
+  --c-lime: #DEFECB;         /* поле декларації, фокус на зеленому */
+  --c-pointer: #C9070A;      /* лише трикутник ▶ на світлому */
+  --c-ink: #151515;          /* основний текст */
+  --c-muted: #5A6660;        /* підписи */
+  --c-surface: #EEF3EC;      /* центри, футер */
+  --c-paper: #FFFFFF;        /* основа */
+
+  /* base names used by the demo base */
+  --color-bg: var(--c-paper);
+  --color-text: var(--c-ink);
+  --color-accent: var(--c-primary-deep);
+  --color-focus: var(--c-primary-deep);
+  --color-focus-on-dark: var(--c-lime);
+
+  /* type — concept §5.4 */
+  --font-display: "Commissioner", "Commissioner Fallback", system-ui, sans-serif;
+  --font-body: "Wix Madefor Text", "Wix Madefor Fallback", system-ui, sans-serif;
+  --fs-h1: clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem);       /* 40 → 72 */
+  --fs-huge: clamp(2.25rem, .2rem + 10.5vw, 7.5rem);    /* 37 (320) / 44 (390) → 120, одне слово */
+  --fs-h2: clamp(1.875rem, 1.45rem + 1.7vw, 3rem);      /* 30 → 48 */
+  --fs-sign: clamp(1.375rem, 1.18rem + .8vw, 1.875rem); /* 22 → 30, таблички й вулиці */
+  --fs-body: clamp(1.0625rem, 1.03rem + .14vw, 1.125rem); /* 17 → 18 */
+  --fs-small: clamp(.875rem, .85rem + .1vw, .9375rem);  /* 14 → 15 */
+  --fs-year: clamp(5.5rem, 3rem + 8vw, 10rem);          /* «1997» як зображення */
+
+  /* space — ритм 8 px */
+  --s-1: .5rem; --s-2: 1rem; --s-3: 1.5rem; --s-4: 2.5rem; --s-5: 4rem; --s-6: 6.5rem; --s-7: 10rem;
+  --block: clamp(5.5rem, 3.6rem + 6.5vw, 10rem);        /* між блоками 88 → 160 */
+  --space: clamp(1.25rem, .2rem + 4.2vw, 4rem);         /* поля 20 → 64 */
+  --gap: clamp(1rem, .85rem + .6vw, 1.5rem);            /* міжколонник 16 → 24 */
+  --container: 1280px;
+  --header-h: 60px;
+
+  --radius: 6px;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 480ms;
+}
+@media (min-width: 768px) { :root { --header-h: 72px; } }

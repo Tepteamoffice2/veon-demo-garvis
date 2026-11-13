@@ -1,0 +1,95 @@
+---
+import Section from "./Section.astro";
+import Pointer from "./Pointer.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { mainPhone, surgeryAreas, otherServices, notes, countOf } from "../data/garvis";
+---
+<Section id="napriamy" class="napr" rec="R-103">
+  <div class="container">
+    <h2 class="h2">З чим ви звертаєтесь?</h2>
+
+    <div class="stands">
+      <article class="stand stand--family" id="n-family" aria-labelledby="n-family-h">
+        <h3 class="stand__title" id="n-family-h"><Pointer class="stand__ptr" /><span>Сімейний лікар і педіатр</span></h3>
+        <div class="stand__main">
+          <p>Прийом сімейного лікаря та педіатра за декларацією, консультації фахівців понад 30 спеціальностей.</p>
+          <a class="textlink" href="#deklaratsiia">Безоплатно з НСЗУ</a>
+        </div>
+        <div class="stand__where">
+          <p class="stand__big"><span class="num">{countOf("family")}</span> центрів по місту</p>
+          <a class="textlink" href="#tsentry" data-filter-go="family">Знайти найближчий центр</a>
+          <div class="stand__act">
+            <a class="btn btn--primary" href={mainPhone.href}><Icon name="phone" />Подзвонити</a>
+            <FutureLink note={notes.page} class="btn btn--future">Детальніше</FutureLink>
+          </div>
+        </div>
+      </article>
+
+      <article class="stand stand--diag" id="n-diag" aria-labelledby="n-diag-h">
+        <h3 class="stand__title" id="n-diag-h"><Pointer class="stand__ptr" /><span>Діагностика</span></h3>
+        <div class="stand__main">
+          <ul class="modalities" aria-label="Що можна пройти">
+            <li>КТ</li><li>МРТ</li><li>мамографія</li><li>УЗД</li><li>лабораторія</li>
+          </ul>
+        </div>
+        <div class="stand__where">
+          <p class="stand__label">Два діагностичні центри</p>
+          <ul class="addr-mini">
+            <li><Pointer />вул. Набережна Перемоги, 1Н</li>
+            <li><Pointer />пр. Слобожанський, 109а</li>
+          </ul>
+          <p class="stand__note">Вартість обстеження уточнюйте в контакт-центрі.</p>
+        </div>
+        <div class="stand__act">
+          <a class="btn btn--primary" href={mainPhone.href}><Icon name="phone" />Подзвонити</a>
+          <FutureLink note={notes.page} class="future-text">Ціни</FutureLink>
+          <FutureLink note={notes.page} class="future-text">Детальніше</FutureLink>
+        </div>
+      </article>
+
+      <article class="stand stand--surgery on-dark" id="n-surgery" aria-labelledby="n-surgery-h">
+        <h3 class="stand__title" id="n-surgery-h"><Pointer class="stand__ptr" /><span>Хірургія</span></h3>
+        <div class="stand__main">
+          <p>Багатопрофільний хірургічний центр з 1997 року, власний стаціонар.</p>
+          <ul class="addr-mini">
+            <li><Pointer />вул. Батумська, 7а</li>
+          </ul>
+        </div>
+        <div class="stand__where">
+          <p class="stand__huge"><span class="num">16</span> хірургічних напрямів</p>
+          <details class="areas">
+            <summary><Pointer class="areas__ptr" />Усі 16 напрямів</summary>
+            <ul class="areas__list">
+              {surgeryAreas.map((a) => <li>{a}</li>)}
+            </ul>
+          </details>
+        </div>
+        <div class="stand__act">
+          <a class="btn btn--lime" href={mainPhone.href}><Icon name="phone" />Подзвонити</a>
+          <FutureLink note={notes.page} class="future-text">Детальніше</FutureLink>
+        </div>
+      </article>
+
+      <article class="stand stand--rehab" id="n-rehab" aria-labelledby="n-rehab-h">
+        <h3 class="stand__title" id="n-rehab-h"><Pointer class="stand__ptr" /><span>Реабілітація</span></h3>
+        <p>Реабілітаційний центр Garvis відкрито у 2023 році. Співпрацює з НСЗУ.</p>
+        <ul class="addr-mini">
+          <li><Pointer />пр. Слобожанський, 109а</li>
+        </ul>
+        <div class="stand__act">
+          <a class="btn btn--ink" href={mainPhone.href}><Icon name="phone" />Подзвонити</a>
+          <FutureLink note={notes.page} class="future-text">Детальніше</FutureLink>
+        </div>
+      </article>
+
+      <aside class="others" aria-labelledby="others-h">
+        <h3 class="others__title" id="others-h">Інші послуги</h3>
+        <ul>
+          {otherServices.map((s) => <li><FutureLink note={notes.page} class="others__item">{s}</FutureLink></li>)}
+        </ul>
+        <p class="others__call">Запис на будь-яку послугу: <a href={mainPhone.href} class="nowrap">{mainPhone.label}</a></p>
+      </aside>
+    </div>
+  </div>
+</Section>

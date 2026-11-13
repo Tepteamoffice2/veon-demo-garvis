@@ -1,0 +1,35 @@
+---
+import Section from "./Section.astro";
+import Pointer from "./Pointer.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { mainPhone, freeByDeclaration, notes } from "../data/garvis";
+---
+<Section id="deklaratsiia" class="decl" rec="R-102,R-211">
+  <div class="container decl__in">
+    <h2 class="decl__title"><span class="decl__huge">Безоплатно</span> за декларацією з НСЗУ</h2>
+    <p class="decl__lead">Підпишіть декларацію з сімейним лікарем або педіатром Garvis — і частина послуг для вас безоплатна за програмою медичних гарантій.</p>
+
+    <ul class="decl__list">
+      {freeByDeclaration.map((f) => <li><Pointer />{f}</li>)}
+    </ul>
+
+    <div class="decl__how">
+      <h3 class="decl__how-title">Як підписати</h3>
+      <ol class="steps">
+        <li><span class="steps__n" aria-hidden="true">1</span><span>Зателефонуйте в контакт-центр, щодня 08:00–20:00.</span></li>
+        <li><span class="steps__n" aria-hidden="true">2</span><span>Прийдіть до найближчого центру «Сімейний лікар» і підпишіть декларацію на місці.</span></li>
+      </ol>
+      <div class="decl__act">
+        <a class="btn btn--primary btn--callnum nowrap" href={mainPhone.href}><Icon name="phone" /><span>Подзвонити: {mainPhone.short}</span></a>
+        <a class="textlink" href="#tsentry" data-filter-go="family">Найближчий центр</a>
+        <FutureLink note={notes.booking} class="btn btn--future btn--future-deep">Підписати онлайн</FutureLink>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* the call label and phone number stay on one line (Hallmark 49); 320 px fit is set in site.css */
+  .btn.nowrap { white-space: nowrap; }
+</style>

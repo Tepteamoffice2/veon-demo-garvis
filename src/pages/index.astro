@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Napriamy from "../components/Napriamy.astro";
+import Deklaratsiia from "../components/Deklaratsiia.astro";
+import Tsentry from "../components/Tsentry.astro";
+import ProGarvis from "../components/ProGarvis.astro";
+import Zapys from "../components/Zapys.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+import fontH1 from "@fontsource/commissioner/files/commissioner-cyrillic-800-normal.woff2?url";
+import { centres, phones, email } from "../data/garvis";
+
+const title = "Garvis — медичні центри у Дніпрі: лікар, діагностика, хірургія";
+const description = "11 закладів Garvis у Дніпрі: сімейний лікар і педіатр за декларацією НСЗУ, КТ, МРТ, хірургія за 16 напрямами, реабілітація. Контакт-центр щодня 08:00–20:00.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalOrganization",
+  name: "Garvis",
+  slogan: "Твоя територія здоров'я!",
+  foundingDate: "1997",
+  founder: { "@type": "Person", name: "Березницький Яків Соломонович" },
+  telephone: phones.map((p) => p.label),
+  email,
+  areaServed: "Дніпро",
+  subOrganization: centres.map((c) => ({
+    "@type": "MedicalClinic",
+    name: c.names.join(" і "),
+    telephone: phones[0].label,
+    address: { "@type": "PostalAddress", streetAddress: c.street, addressLocality: "Дніпро", addressCountry: "UA" },
+  })),
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="preload" href={fontH1} as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#126039" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}favicon.svg`} type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+  <Header slot="header" />
+  <Hero />
+  <Napriamy />
+  <Deklaratsiia />
+  <Tsentry />
+  <ProGarvis />
+  <Zapys />
+  <Footer slot="footer" />
+  <MobileBar slot="footer" />
+</Base>
